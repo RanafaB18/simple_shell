@@ -22,18 +22,24 @@ char * dequote(char *line)
 
 int runCommand(char *command)
 {
-	extern char **environ;
-	char *argv[] = {command, NULL};
+	char **argv = malloc(sizeof(char *) * 2);
 	char *path = _getenv("PATH");
 	char *delim = ":";
 	int arrayLength = countWords(path, delim);
-	char *envp[] = {path, NULL};
+	char **envp = malloc(sizeof(char *) * 2);
 	char **array;
 	char *newCommand = NULL;
 	int i;
 	int j;
 	int commandLength = countWords(command, " ");
 	char **commandArray;
+	int status;
+	pid_t child;
+
+	argv[0] = command;
+	argv[1] = NULL;
+	envp[0] = path;
+	envp[1] = NULL;
 	commandArray = calloc(commandLength + 1, sizeof(char *));
 	allocateMemory(commandArray, command, " ", commandLength, 0);
 	for (j = 0; j < commandLength; j++)
@@ -46,10 +52,7 @@ int runCommand(char *command)
 	commandArray[commandLength] = NULL;
 	array = calloc(arrayLength, sizeof(char *));
 	allocateMemory(array, path, delim, arrayLength, 1);
-
-	int status;
-
-	pid_t child = fork();
+	child = fork();
 	if (child == -1)
 	{
 		perror("./shell1 ");
@@ -90,5 +93,7 @@ int runCommand(char *command)
 	freeMemory(array, arrayLength);
 	freeMemory(commandArray, commandLength);
 	free(path);
+	free(argv);
+	free(envp);
 	return (1);
 }

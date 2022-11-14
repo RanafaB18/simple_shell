@@ -23,15 +23,13 @@ int isName(char *env, const char *name)
 {
 	size_t start = 0;
 	int indexOfEqual = findIndexOfEqual(env);
+	size_t end = indexOfEqual;
+	int indexOfValue = (strlen(env) - (strlen(env) - end)) + 1;
+	char *environName;
 	if (indexOfEqual == -1)
 	{
 		return (-1);
 	}
-
-	size_t end = indexOfEqual;
-	int indexOfValue = (strlen(env) - (strlen(env) - end)) + 1;
-	char *environName;
-
 	environName = malloc(sizeof(char) * (end + 1));
 
 	slice(env, environName, start, end);

@@ -13,17 +13,18 @@ int _strlen(char *str)
 int countWords(char *str, char *delim)
 {
 	int stringLength = _strlen(str) + 1;
-	char cpy[stringLength];
-	memcpy(cpy, str, stringLength);
+	char *cpy = malloc(sizeof(char) * stringLength);
 	char *token;
 	int count = 0;
 
+	memcpy(cpy, str, stringLength);
 	token = strtok(cpy, delim);
 	while (token != NULL)
 	{
 		token = strtok(NULL, delim);
 		count++;
 	}
+	free(cpy);
 	return (count);
 }
 
