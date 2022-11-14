@@ -1,11 +1,14 @@
 #ifndef _MAIN_H
 #define _MAIN_H
+
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include <sys/wait.h>
 #include <string.h>
 #include <stdlib.h>
+
+extern char **environ;
 
 int runCommand(char *command);
 char * dequote(char *line);

@@ -1,15 +1,25 @@
 #include "main.h"
-
+/**
+* _strlen- get the length of a string
+* @str: string
+* Return: length of string
+*/
 int _strlen(char *str)
 {
 	int count = 0;
+
 	while (str[count] != '\0')
 	{
 		count++;
 	}
-	return count;
+	return (count);
 }
-
+/**
+  * countWords- count the number of words sepearated by delim
+  * @str: string
+  * @delim: delimiter to separate words by
+  * Return: number of words seperated by delim
+  */
 int countWords(char *str, char *delim)
 {
 	int stringLength = _strlen(str) + 1;
@@ -27,8 +37,17 @@ int countWords(char *str, char *delim)
 	free(cpy);
 	return (count);
 }
-
-void allocateMemory(char **array, char *str, char *delim, int length, int addToEnd)
+/**
+  * allocateMemory- create a 2D array with appropriate space allocated
+  * @array: 2D array
+  * @str: string
+  * @delim: delimiter
+  * @length: length of array
+  * @addToEnd: if 0, , do not add '/' to elements in array. if 1, add
+  * Return: void
+  */
+void allocateMemory(char **array, char *str, char *delim,
+int length, int addToEnd)
 {
 	int index = 0;
 	char *token;
@@ -55,10 +74,16 @@ void allocateMemory(char **array, char *str, char *delim, int length, int addToE
 		index++;
 	}
 }
-
+/**
+  * freeMemory- free memory allocated
+  * @array: 2D array
+  * @arrayLength: length of array
+  * Return: void
+  */
 void freeMemory(char **array, int arrayLength)
 {
 	int i;
+
 	for (i = 0; i < arrayLength; i++)
 	{
 		free(array[i]);
@@ -67,7 +92,10 @@ void freeMemory(char **array, int arrayLength)
 	free(array);
 	array = NULL;
 }
-
+/**
+  * getInput- get input from the user
+  * Return: input from the user
+  */
 char *getInput()
 {
 	char *buffer = NULL;
@@ -84,5 +112,5 @@ char *getInput()
 		buffer[chars - 1] = '\0';
 		--chars;
 	}
-	return buffer;
+	return (buffer);
 }
